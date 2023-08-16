@@ -1,0 +1,5 @@
+streamlit
+modzy-sdk
+opencv-python-headless
+pafy
+youtube-dl
