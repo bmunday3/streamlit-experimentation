@@ -13,6 +13,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+st.sidebar.markdown("## AI-Powered Smart City Dashboard")
+
 # add keys to session state to be populated later
 if 'aggregate_df' not in st.session_state:
     st.session_state.aggregate_df =  pd.DataFrame(
