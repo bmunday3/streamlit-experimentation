@@ -23,4 +23,4 @@ Repo for testing out different streamlit application ideas
 
 ### Nantucket Smart Cities
 
-Still in progress
+Same as St Augustine app
