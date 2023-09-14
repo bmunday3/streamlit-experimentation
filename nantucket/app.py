@@ -33,8 +33,8 @@ STREAM_URL = st.session_state.stream_url
 
 # modzy config
 # yolov8
-# MODEL_ID = "avlilexzvu" #demo
-MODEL_ID = "mk8halxkx6" #dev
+MODEL_ID = "avlilexzvu" #demo
+# MODEL_ID = "mk8halxkx6" #dev
 MODEL_VERSION = "1.0.0"
 # yolos
 # MODEL_ID = "ccsvw2eofe"
