@@ -1,4 +1,5 @@
 import cv2
+import json
 import time
 import base64
 import numpy as np
@@ -12,7 +13,9 @@ from modzy import EdgeClient
 
 client = EdgeClient('localhost', 55000) # change to IP address
 MODEL_ID = "esutxpoagu"
-MODEL_VERSION = "0.0.2"
+# MODEL_VERSION = "0.0.2"
+MODEL_VERSION = "0.0.4"
+
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -37,23 +40,26 @@ def process(image):
     inference = client.inferences.perform_inference(MODEL_ID, MODEL_VERSION, [input_object]) # direct mode      
     end = time.time()
     print(f"Processed frame in {round(((end-start)/60)*1000, 6)} ms")
+    # print(inference)
 
     # Draw the hand annotations on the image.
+    predictions = json.loads(inference.result.outputs["results.json"].data)
+    # print(predictions)
     image.flags.writeable = True
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-    if "results.json" in list(inference.result.outputs.keys()):
-        data = base64.b64decode(inference.result.outputs["results.json"].data)
-        results_hands = landmark_pb2.NormalizedLandmarkList()
-        results_hands.ParseFromString(data)    
-        # print(len(results_hands))
-        # for hand_landmarks in results_hands2.landmark:
-        mp_drawing.draw_landmarks(
-            image=image,
-            landmark_list=results_hands,
-            connections=hands_connections,
-            landmark_drawing_spec=mp_drawing_styles.get_default_hand_landmarks_style(),
-            connection_drawing_spec=mp_drawing_styles.get_default_hand_connections_style()
-        )     
+    if predictions:
+        for landmarks in predictions:
+            results_hands = landmark_pb2.NormalizedLandmarkList()
+            results_hands.ParseFromString(base64.b64decode(landmarks))
+            # results_hands.append(proto_object)       
+            # for hand_landmarks in results_hands2.landmark:
+            mp_drawing.draw_landmarks(
+                image=image,
+                landmark_list=results_hands,
+                connections=hands_connections,
+                landmark_drawing_spec=mp_drawing_styles.get_default_hand_landmarks_style(),
+                connection_drawing_spec=mp_drawing_styles.get_default_hand_connections_style()
+            )     
                                           
     return cv2.flip(image, 1)
 
