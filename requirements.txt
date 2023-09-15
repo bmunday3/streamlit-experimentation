@@ -1,4 +1,5 @@
 streamlit
+streamlit-webrtc
 modzy-sdk
 opencv-python-headless
 pafy
