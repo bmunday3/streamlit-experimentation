@@ -1,0 +1,6 @@
+streamlit
+streamlit_webrtc
+modzy-sdk>=0.11.6
+mediapipe
+opencv-python
+# protobuf<=3.20.0
