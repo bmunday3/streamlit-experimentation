@@ -22,4 +22,4 @@ COPY ./streamer.py streamer.py
 COPY ./app.py app.py
 
 # entrypoint
-CMD streamlit run app.py --server.port $PORT
+CMD streamlit run app.py --server.port=$PORT --server.address="0.0.0.0"
