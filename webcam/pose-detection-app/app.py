@@ -15,7 +15,6 @@ model_selection = st.sidebar.radio(label="Select model for inference", options=[
 st.sidebar.caption("*Note: Selecting 'Both' may reduce output video stream speed.*")
     
 client = EdgeClient('localhost', 55000)
-# client = EdgeClient('10.0.0.240', 55000) # change to IP address
 # client = EdgeClient('host.docker.internal', 55000) # change to IP address
 client.connect()
 
