@@ -66,7 +66,6 @@ selected_model = page_grid[0][1].selectbox(
     options=["YOLOv8 Object Detection", "YOLOv8 Object Detection (OpenVINO Optmized)"], 
     index=0
 )
-st.selectbox("", [], )
 page_grid[0][1].divider()
 confidence_threshold = page_grid[0][1].slider(
     "*Confidence threshold*", 0.0, 1.0, 0.15, 0.05, key="slider_value"

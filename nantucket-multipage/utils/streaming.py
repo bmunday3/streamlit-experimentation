@@ -35,6 +35,7 @@ def get_streaming_url(link):
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(link, download=False)
         format_ids = {format['format_id']:format['url'] for format in info['formats']}
+        
         if not any(id in list(format_ids.keys()) for id in KEEP_FORMAT_IDS):
             raise ValueError("Format IDs 94, 95, 96 not available in YouTube link")
         elif '94' in list(format_ids.keys()):
