@@ -37,7 +37,9 @@ def format_table(df):
     return confidence_df, counts_df
 
 # update analysis statistics
-def update_analysis(df, session_state):
+def update_analysis(session_state):
+    df = pd.DataFrame(session_state.aggregate_df_list, columns=["Timestamp", "Object", "Confidence Score", "Frame Read Time", "Inference Time", "Postprocess Time"])
+    df.to_csv("data_agg.csv", index=False)
     # create total column
     df["Total"] = df.iloc[:, 3:6].sum(axis=1)
     # split into inference & non-inference
@@ -45,15 +47,9 @@ def update_analysis(df, session_state):
     inference = df[df["Object"] != "No overlay"]   
     # transform inference data into digestible format
     conf_data, counts_data = format_table(inference) 
-    print('')
     # summarize inference and non-inference tables into summary statistics
     performance = update_performance_table(inference, no_inference)
-    # update session state
-    print('counts:\n\n{}'.format(counts_data.shape))
-    session_state.conf_data = conf_data
-    session_state.counts_data = counts_data
-    session_state.performance = performance
-    # return conf_data, counts_data, performance
+    return conf_data, counts_data, performance
 
 # convert bounding boxes from xywh to xyxy format
 def xywh2xyxy(x):

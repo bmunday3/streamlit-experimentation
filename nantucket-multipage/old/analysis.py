@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from utils import make_grid, update_analysis
 
-
 st.set_page_config(
     page_title="Analysis Dashboard",
     page_icon="imgs/modzy_badge_v4.png",
@@ -30,6 +29,9 @@ if 'performance' not in st.session_state:
 st.title("Analysis Dashboard")
 st.divider()
 page_grid = make_grid(1,1)
+
+# st.text(st.session_state.aggregate_df_list)
+# st.text(len(st.session_state.aggregate_df_list))
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
